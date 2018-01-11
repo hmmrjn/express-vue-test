@@ -4,7 +4,9 @@ var router = express.Router();
 var expressVue = require('express-vue');
 
 var app = express();
-var server = app.listen(8080);
+var server = app.listen(8080, ()=> {
+  console.log('Server running at port: ' + server.address().port)
+});
 
 const vueOptions = {
     rootPath: path.join(__dirname, '/views'),
@@ -15,12 +17,10 @@ const vueOptions = {
 };
 const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
-console.log('ちん！ちん！K.O.');
 
 
 // router.get('/', (req, res, next) => {
 app.use('/', (req, res, next) => {
-  console.log('ぱい!ぱい!');
     const data = {
         otherData: '人類の大きな一歩'
     };

@@ -7,7 +7,7 @@ var app = express();
 var server = app.listen(8080);
 
 const vueOptions = {
-    rootPath: path.join(__dirname, '/example/views'),
+    rootPath: path.join(__dirname, '/views'),
     layout: {
         start: '<div id="app">',
         end: '</div>'

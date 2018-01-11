@@ -1,30 +1,37 @@
-const Vue = require('vue')
-const server = require('express')()
-// const renderer = require('vue-server-renderer').createRenderer()
+var express = require('express');
+var path = require('path');
+var router = express.Router();
+var expressVue = require('express-vue');
 
-server.get('*', (req, res) => {
-  const app = new Vue({
-    data: {
-      url: req.url
-    },
-    template: `<div>The visited URL is: {{ url }}</div>`
-  })
+var app = express();
+var server = app.listen(8080);
 
-  const context = {
-    title: 'hello',
-    meta: `
-    <div>まんまん</div>
-    `
-  }
+const vueOptions = {
+    rootPath: path.join(__dirname, '/example/views'),
+    layout: {
+        start: '<div id="app">',
+        end: '</div>'
+    }
+};
+const expressVueMiddleware = expressVue.init(vueOptions);
+app.use(expressVueMiddleware);
+console.log('ちん！ちん！K.O.');
 
-  const renderer = require('vue-server-renderer').createRenderer({
-    template: require('fs').readFileSync('./index.template.html', 'utf-8')
-  })
-  renderer.renderToString(app,context, (err, html) => {
-    console.log(html) // アプリのコンテンツを含む完全なページになります
-    res.end(html)
-  })
+
+// router.get('/', (req, res, next) => {
+app.use('/', (req, res, next) => {
+  console.log('ぱい!ぱい!');
+    const data = {
+        otherData: '人類の大きな一歩'
+    };
+    const vueOptions = {
+        head: {
+            title: 'Page Title',
+            meta: [
+                { property:'og:title', content: 'Page Title'},
+                { name:'twitter:title', content: 'Page Title'},
+            ]
+        }
+    }
+    res.renderVue('main', data, vueOptions);
 })
-
-
-server.listen(8080)

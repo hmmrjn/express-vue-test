@@ -1,6 +1,6 @@
 <style>
 
-p {
+h1 {
     color: skyblue;
 }
 
@@ -9,8 +9,9 @@ p {
 <template>
 
 <div id="app">
-    <p>I am {{otherData}}. </p>
-    <p>I like to create {{tnk}} :)&nbsp;&nbsp;</p>
+    <h1>Bonjour World!</h1>
+    <p>{{message}}</p>
+    <p>{{selfData}}</p>
 </div>
 
 </template>
@@ -21,7 +22,7 @@ export default {
     name: 'app',
     data() {
         return {
-            tnk: 'あ'
+            selfData: 'views/app.jsのscriptタグからの挨拶'
         }
     }
 }

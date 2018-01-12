@@ -18,20 +18,5 @@ const vueOptions = {
 const expressVueMiddleware = expressVue.init(vueOptions);
 app.use(expressVueMiddleware);
 
-
-// router.get('/', (req, res, next) => {
-app.use('/', (req, res, next) => {
-    const data = {
-        otherData: '人類の大きな一歩'
-    };
-    const vueOptions = {
-        head: {
-            title: 'Page Title',
-            meta: [
-                { property:'og:title', content: 'Page Title'},
-                { name:'twitter:title', content: 'Page Title'},
-            ]
-        }
-    }
-    res.renderVue('main', data, vueOptions);
-})
+var index = require('./routes/index');
+app.use('/', index);
